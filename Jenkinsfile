@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        NODE_VERSION = '18'
+        NODE_VERSION = '20'
         // https://github.com/DeepakDevProjects/meta-keyword-extract
         GITHUB_REPO = 'DeepakDevProjects/meta-keyword-extract'
         SPREADSHEET_ID = '1u_6w8LhMj-zg8qQxg71zNRmdzdbVPDm1UKDNj_9IAtg'
@@ -40,8 +40,8 @@ pipeline {
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm install 18
-                    nvm use 18
+                    nvm install 20
+                    nvm use 20
                     node -v
                     npm -v
                 '''
@@ -50,51 +50,30 @@ pipeline {
 
         
         stage('Install Dependencies') {
-            // steps {
-            //     echo 'Installing npm dependencies...'
-            //     sh 'npm install'
-            // }
             steps {
                 echo 'Installing npm dependencies...'
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm use 18
+                    nvm use 20
                     npm install
                 '''
             }
         }
         
         stage('Build TypeScript') {
-            // steps {
-            //     echo 'Building TypeScript code...'
-            //     sh 'npm run build'
-            // }
             steps {
                 echo 'Building TypeScript code...'
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                    nvm use 18
+                    nvm use 20
                     npm run build
                 '''
             }
         }
         
         stage('Extract Meta Keywords') {
-            // steps {
-            //     echo 'Running alphabetical counting automation...'
-            //     script {
-            //         // Set up Google credentials
-            //         withCredentials([file(credentialsId: 'google-sheets-credentials', variable: 'GOOGLE_CREDS')]) {
-            //             sh '''
-            //                 export GOOGLE_APPLICATION_CREDENTIALS="$GOOGLE_CREDS"
-            //                 export SPREADSHEET_ID="$SPREADSHEET_ID"
-            //                 npm start
-            //             '''
-            //         }
-            //     }
-            // }
             steps {
                 echo 'Running alphabetical counting automation...'
                 script {
@@ -102,7 +81,7 @@ pipeline {
                         sh '''
                             export NVM_DIR="$HOME/.nvm"
                             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                            nvm use 18
+                            nvm use 20
                             export GOOGLE_APPLICATION_CREDENTIALS="$GOOGLE_CREDS"
                             export SPREADSHEET_ID="$SPREADSHEET_ID"
                             npm start
