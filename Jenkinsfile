@@ -3,9 +3,8 @@ pipeline {
     
     environment {
         NODE_VERSION = '18'
-        // https://github.com/DeepakDevProjects/Demo-Project-Jenkins
-        GITHUB_REPO = 'DeepakDevProjects/Demo-Project-Jenkins'
-        // SPREADSHEET_ID = '13zbniVZQlUYMQQDnNPLqjX7VcrTmVBZ7PL4HWX8BX0s'
+        // https://github.com/DeepakDevProjects/meta-keyword-extract
+        GITHUB_REPO = 'DeepakDevProjects/meta-keyword-extract'
         SPREADSHEET_ID = '1u_6w8LhMj-zg8qQxg71zNRmdzdbVPDm1UKDNj_9IAtg'
         GOOGLE_CREDENTIALS = credentials('google-sheets-credentials')
     }

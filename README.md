@@ -50,7 +50,7 @@ npm start
 1. **Create a new Pipeline Job in Jenkins:**
    - Go to `http://localhost:8080`
    - Click "New Item"
-   - Enter job name: `alphabetical-counting-pipeline`
+   - Enter job name: `meta-keyword-pipeline`
    - Select "Pipeline"
    - Click "OK"
 
