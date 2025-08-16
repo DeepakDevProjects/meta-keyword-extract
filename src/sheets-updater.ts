@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import fetch from 'node-fetch';
 
 export class SheetsUpdater {
   private auth: any;
@@ -20,7 +19,7 @@ export class SheetsUpdater {
     return match ? match[1] : null;
   }
 
-  // ✅ helper for fetch with timeout
+  // ✅ helper for fetch with timeout using Node.js built-in fetch
   private async fetchWithTimeout(url: string, ms: number) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), ms);
@@ -44,7 +43,7 @@ export class SheetsUpdater {
 
     for (const url of urls) {
       try {
-        const response = await this.fetchWithTimeout(url, 10000); // ✅ fixed
+        const response = await this.fetchWithTimeout(url, 10000);
         if (!response.ok) {
           results.push(['', 'Failed', `HTTP ${response.status}`]);
           continue;
@@ -73,4 +72,3 @@ export class SheetsUpdater {
     console.log('📊 Sheet updated with Meta Keywords data');
   }
 }
-

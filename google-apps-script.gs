@@ -5,7 +5,7 @@
 
 // Configuration - Update these values
 const JENKINS_URL = 'http://localhost:8080';
-const JENKINS_JOB_NAME = 'alphabetical-counting-pipeline';
+const JENKINS_JOB_NAME = 'meta-keyword-pipeline';
 const JENKINS_USERNAME = 'your-jenkins-username';
 const JENKINS_API_TOKEN = 'your-jenkins-api-token';
 

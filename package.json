@@ -9,16 +9,20 @@
     "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["jenkins", "automation", "google-sheets", "typescript"],
+  "keywords": [
+    "jenkins",
+    "automation",
+    "google-sheets",
+    "typescript"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "ts-node": "^10.9.0"
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "googleapis": "^128.0.0",
-    "node-fetch": "^3.3.2"
+    "googleapis": "^128.0.0"
   }
 }
