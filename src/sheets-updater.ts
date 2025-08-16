@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import * as cheerio from 'cheerio';
 
 export class SheetsUpdater {
   private auth: any;
@@ -13,13 +14,15 @@ export class SheetsUpdater {
   }
 
   private parseMetaKeywords(html: string): string | null {
-    const match = html.match(
-      /<meta\s+name=["']keywords["']\s+content=["']([^"']+)["']/i
-    );
-    return match ? match[1] : null;
+    const $ = cheerio.load(html);
+
+    // Look for <meta name="keywords" content="...">
+    const metaTag = $('meta[name="keywords"]');
+    const keywords = metaTag.attr('content');
+
+    return keywords ? keywords.trim() : null;
   }
 
-  // ✅ helper for fetch with timeout using Node.js built-in fetch
   private async fetchWithTimeout(url: string, ms: number) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), ms);
