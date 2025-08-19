@@ -131,9 +131,15 @@ pipeline {
         GITHUB_REPO = 'DeepakDevProjects/meta-keyword-extract'
         SPREADSHEET_ID = '1u_6w8LhMj-zg8qQxg71zNRmdzdbVPDm1UKDNj_9IAtg'
         GOOGLE_CREDENTIALS = credentials('google-sheets-credentials')
+        SLACK_CHANNEL = '#jenkins-job-notification'
     }
     
     stages {
+        stage('Notify Job Triggered') {
+            steps {
+                slackSend(channel: env.SLACK_CHANNEL, message: "🚀 Jenkins job *triggered* for `${env.JOB_NAME}` (<${env.BUILD_URL}|#${env.BUILD_NUMBER}>)")
+            }
+        }
         stage('Checkout') {
             steps {
                 echo '📥 Checking out code from GitHub...'
@@ -196,6 +202,9 @@ pipeline {
     }
     
     post {
+        started {
+            slackSend(channel: env.SLACK_CHANNEL, message: "🏗️ Jenkins job *started* for `${env.JOB_NAME}` (<${env.BUILD_URL}|#${env.BUILD_NUMBER}>)")
+        }
         always {
             echo '🧹 Cleaning up workspace...'
             cleanWs()
@@ -203,10 +212,12 @@ pipeline {
         success {
             echo '🎉 Pipeline completed successfully!'
             echo '📊 Meta Keywords have been updated in the Google Spreadsheet.'
+            slackSend(channel: env.SLACK_CHANNEL, message: "✅ Jenkins job *succeeded* for `${env.JOB_NAME}` (<${env.BUILD_URL}|#${env.BUILD_NUMBER}>)")
         }
         failure {
             echo '❌ Pipeline failed!'
             echo '⚠️ Check the logs for more details.'
+            slackSend(channel: env.SLACK_CHANNEL, message: "❌ Jenkins job *failed* for `${env.JOB_NAME}` (<${env.BUILD_URL}|#${env.BUILD_NUMBER}>)\nReason: ${currentBuild.currentResult}")
         }
     }
 }
